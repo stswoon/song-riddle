@@ -1,0 +1,22 @@
+{
+  "name": "song-riddle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "testcafe chrome test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stswoon/song-riddle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stswoon/song-riddle/issues"
+  },
+  "homepage": "https://github.com/stswoon/song-riddle#readme",
+  "dependencies": {
+    "testcafe": "^2.1.0"
+  }
+}
