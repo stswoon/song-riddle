@@ -1,22 +1,16 @@
 {
   "name": "song-riddle",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "testcafe chrome test.js"
+    "start": "node server.js",
+    "dev": "cross-env dev=true nodemon server.js --dev"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stswoon/song-riddle.git"
-  },
-  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/stswoon/song-riddle/issues"
-  },
-  "homepage": "https://github.com/stswoon/song-riddle#readme",
   "dependencies": {
-    "testcafe": "^2.1.0"
+    "cross-env": "^7.0.3",
+    "express": "^4.15.2",
+    "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.20",
+    "puppeteer": "^19.3.0"
   }
 }
