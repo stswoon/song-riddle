@@ -2,8 +2,10 @@ const puppeteer = require('puppeteer');
 
 module.exports.translate = async function translate(text, fromLang, toLang) {
     try {
+
+
         let headless = process.env.dev === "true" ? false : true;
-        const browser = await puppeteer.launch({headless});
+        const browser = await puppeteer.launch({headless, args: ['--no-sandbox', '--disable-setuid-sandbox'],});
         const page = await browser.newPage();
 
         // await page.goto(`https://translate.yandex.ru/?source_lang=${fromLang}&target_lang=${toLang}&text=${text}`);
