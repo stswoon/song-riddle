@@ -1,5 +1,6 @@
 const express = require('express');
-const {translate} = require('./puppeteer-run');
+// const {translate} = require('./puppeteer-run');
+const {translateWrap} = require('./g-translate-lib');
 const {voice} = require("./voxworker");
 
 const unexpectedExceptionHandle = (cause) => console.error("Something went wrong: ", cause);
@@ -16,8 +17,15 @@ app.use((error, req, res, next) => {
 
 app.get('/translate', async (req, res) => {
     console.info("translate");
-    const result = await translate(req.query.text, req.query.fromLang, req.query.toLang)
-    res.contentType("text").send(result);
+    let text = decodeURIComponent(req.query.text);
+    let langs = req.query.langs;
+    langs = langs.split(",");
+    for (let i = 0; i < langs.length - 1; i++) {
+        text = await translateWrap(text, langs[i], langs[i + 1]);
+        console.log(langs[i] + " -> " + langs[i + 1]);
+        console.log(text);
+    }
+    res.contentType("text").send(text);
 });
 
 app.get('/read', async (req, res) => {

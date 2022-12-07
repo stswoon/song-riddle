@@ -1,9 +1,9 @@
+// add in depends in package.json "puppeteer": "^19.3.0"
+
 const puppeteer = require('puppeteer');
 
 module.exports.translate = async function translate(text, fromLang, toLang) {
     try {
-
-
         let headless = process.env.dev === "true" ? false : true;
         const browser = await puppeteer.launch({headless, args: ['--no-sandbox', '--disable-setuid-sandbox'],});
         const page = await browser.newPage();
