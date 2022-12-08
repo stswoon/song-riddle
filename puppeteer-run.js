@@ -1,5 +1,3 @@
-// add in depends in package.json "puppeteer": "^19.3.0"
-
 const puppeteer = require('puppeteer');
 
 module.exports.translate = async function translate(text, fromLang, toLang) {

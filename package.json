@@ -10,7 +10,8 @@
     "@vitalets/google-translate-api": "^9.0.0",
     "cross-env": "^7.0.3",
     "express": "^4.15.2",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+    "puppeteer": "^19.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

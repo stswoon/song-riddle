@@ -1,5 +1,5 @@
 const express = require('express');
-// const {translate} = require('./puppeteer-run');
+const {translate} = require('./puppeteer-run');
 const {translateWrap} = require('./g-translate-lib');
 const {voice} = require("./voxworker");
 
@@ -20,17 +20,29 @@ app.get('/translate', async (req, res) => {
     let text = decodeURIComponent(req.query.text);
     let langs = req.query.langs;
     langs = langs.split(",");
-    for (let i = 0; i < langs.length - 1; i++) {
-        text = await translateWrap(text, langs[i], langs[i + 1]);
-        console.log(langs[i] + " -> " + langs[i + 1]);
-        console.log(text);
+    try {
+        for (let i = 0; i < langs.length - 1; i++) {
+            text = await translateWrap(text, langs[i], langs[i + 1]);
+            console.log(langs[i] + " -> " + langs[i + 1]);
+            console.log(text);
+        }
+    } catch (e) {
+        if (e.name === "TooManyRequestsError") {
+            console.info("use fallback via browser");
+            for (let i = 0; i < langs.length - 1; i++) {
+                text = await translate(text, langs[i], langs[i + 1]);
+                console.log(langs[i] + " -> " + langs[i + 1]);
+                console.log(text);
+            }
+        }
     }
     res.contentType("text").send(text);
 });
 
 app.get('/read', async (req, res) => {
     console.info("voice");
-    const result = await voice(req.query.text)
+    const text = decodeURIComponent(req.query.text);
+    const result = await voice(text);
     res.send(JSON.stringify({voiceUrl: result.voiceUrl, downloadUrl: result.downloadUrl}));
 });
 

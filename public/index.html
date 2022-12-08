@@ -57,11 +57,78 @@
 
     <div>
         <div>
+            <select id="lang1">
+<!--                <option value="" disabled></option>-->
+                <option value="en" selected>английский</option>
+                <option value="ru">русский</option>
+                <option value="de">немецкий</option>
+                <option value="fr">французский</option>
+                <option value="es">эспанский</option>
+                <option value="it">итальянский</option>
+                <option value="zh-CN">китайский упрошенный</option>
+                <option value="ur">урду</option>
+                <option value="tl">филипинский</option>
+                <option value="km">кхмерский</option>
+                <option value="km">кхмерский</option>
+                <option value="iw">иврит</option>
+                <option value="ar">арабский</option>
+                <option value="ja">японский</option>
+            </select>
+        </div>
+        <div>
+            <select id="lang2">
+                <option value=""></option>
+                <option value="en">английский</option>
+                <option value="ru">русский</option>
+                <option value="de">немецкий</option>
+                <option value="fr">французский</option>
+                <option value="es">эспанский</option>
+                <option value="it">итальянский</option>
+                <option value="zh-CN">китайский упрошенный</option>
+                <option value="ur">урду</option>
+                <option value="tl">филипинский</option>
+                <option value="km">кхмерский</option>
+                <option value="km">кхмерский</option>
+                <option value="iw">иврит</option>
+                <option value="ar">арабский</option>
+                <option value="ja">японский</option>
+            </select>
+        </div>
+        <div>
+            <select id="lang3">
+                <option value=""></option>
+                <option value="en">английский</option>
+                <option value="ru">русский</option>
+                <option value="de">немецкий</option>
+                <option value="fr">французский</option>
+                <option value="es">эспанский</option>
+                <option value="it">итальянский</option>
+                <option value="zh-CN">китайский упрошенный</option>
+                <option value="ur">урду</option>
+                <option value="tl">филипинский</option>
+                <option value="km">кхмерский</option>
+                <option value="km">кхмерский</option>
+                <option value="iw">иврит</option>
+                <option value="ar">арабский</option>
+                <option value="ja">японский</option>
+            </select>
+        </div>
+
+        <div>
+            <select id="lang4">
+                <option value=""></option>
+                <option value="ru" selected>русский</option>
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <div>
             <textarea id="to" rows="30" cols="40"></textarea>
         </div>
         <button onclick="public_read()">Read</button>
-        <button onclick="public_stop()">Stop</button>
-        <a id="download" href="#" download="voice.mp3">Download</a>
+        <button onclick="public_stop()" disabled id="stop">Stop</button>
+        <a id="download" href="#" download="voice.mp3" id="download">Download</a>
     </div>
 </div>
 
