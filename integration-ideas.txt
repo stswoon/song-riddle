@@ -1,0 +1,10 @@
+1) Преобразование речи в текст - https://voxworker.com/ru/page/plans
+Можно проговорить с ними начет сотрудничества, например генерация книжек!!!
+
+2) https://rapidapi.com/gofitech/api/nlp-translation/pricing - довольно триальный транслайт апи
+
+но есть https://libretranslate.com/ они просят 29 баксов вмесяц за рест апи однако
+
+и основаны на https://github.com/LibreTranslate/LibreTranslate - тобишь можно поднять свой сервак с комерческим испльзовием!!!
+
+можно на https://rapidapi.com выложить кстати тоже + донайт сделать для рест апи в рате лимитингом!!!!
