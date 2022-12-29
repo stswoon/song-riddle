@@ -4,32 +4,31 @@ https://cloud.yandex.ru/docs/speechkit/quickstart
 
 1)  https://cloud.yandex.ru/docs/iam/operations/iam-token/create
 
-https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb
+https://oauth.yandex.ru/authorize?response_type=token&client_id=y0_XXX
 
-y0_AgAAAAABQLhLAATuwQAAAADXggsTlVvdfEocQnCSzEfcWbLMbn5I4FY
 
 2)
 
 curl -d "{\"yandexPassportOauthToken\":\"<OAuth-token>\"}" "https://iam.api.cloud.yandex.net/iam/v1/tokens"
 
-curl -d "{\"yandexPassportOauthToken\":\y0_AgAAAAABQLhLAATuwQAAAADXggsTlVvdfEocQnCSzEfcWbLMbn5I4FY"}" "https://iam.api.cloud.yandex.net/iam/v1/tokens"
+curl -d "{\"yandexPassportOauthToken\":\y0_XXX"}" "https://iam.api.cloud.yandex.net/iam/v1/tokens"
 
 
-curl https://iam.api.cloud.yandex.net/iam/v1/tokens -d '{"yandexPassportOauthToken":"y0_AgAAAAABQLhLAATuwQAAAADXggsTlVvdfEocQnCSzEfcWbLMbn5I4FY"}'
+curl https://iam.api.cloud.yandex.net/iam/v1/tokens -d '{"yandexPassportOauthToken":"y0_XXX"}'
 
 
 
 curl 'https://iam.api.cloud.yandex.net/iam/v1/tokens' \
 --header 'Content-Type: application/json' \
---data-raw '{"yandexPassportOauthToken":"y0_AgAAAAABQLhLAATuwQAAAADXggsTlVvdfEocQnCSzEfcWbLMbn5I4FY"}'
+--data-raw '{"yandexPassportOauthToken":"y0_XXX"}'
 
 
 
 POST https://iam.api.cloud.yandex.net/iam/v1/tokens 
-BODY: {"yandexPassportOauthToken":"y0_AgAAAAABQLhLAATuwQAAAADXggsTlVvdfEocQnCSzEfcWbLMbn5I4FY"}
+BODY: {"yandexPassportOauthToken":"y0_XXX"}
 
 
-"iamToken": "t1.9euelZqKkpiVlsaVisyezsaMzsmdz-3rnpWam5uPz8-JkY_MysaTy8eSlIrl8_dLBGti-e8uCnVp_t3z9wszaGL57y4KdWn-.uzV2QhShP-UYHto3ROXGBsgisoG9pkx9ht6g_noPPvUlx6Hjms8gS4TNI5YPELhzLXQeg7pVgTiY4cCQgxr_Dw",
+"iamToken": "t1.YYY",
 
 3) 
 
@@ -44,15 +43,15 @@ curl -X POST \
    
    
 curl -X POST \
-   -H "Authorization: Bearer t1.9euelZqKkpiVlsaVisyezsaMzsmdz-3rnpWam5uPz8-JkY_MysaTy8eSlIrl8_dLBGti-e8uCnVp_t3z9wszaGL57y4KdWn-.uzV2QhShP-UYHto3ROXGBsgisoG9pkx9ht6g_noPPvUlx6Hjms8gS4TNI5YPELhzLXQeg7pVgTiY4cCQgxr_Dw" \
+   -H "Authorization: Bearer t1.YYY" \
    --data-urlencode "text=ПриветМирКакДела" \
    -d "lang=ru-RU&voice=filipp&folderId=b1gqspa47tebubmosntn" \
    "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize" > speech.ogg   
    
    
 POST https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize
-H: Authorization=Bearer t1.9euelZqKkpiVlsaVisyezsaMzsmdz-3rnpWam5uPz8-JkY_MysaTy8eSlIrl8_dLBGti-e8uCnVp_t3z9wszaGL57y4KdWn-.uzV2QhShP-UYHto3ROXGBsgisoG9pkx9ht6g_noPPvUlx6Hjms8gS4TNI5YPELhzLXQeg7pVgTiY4cCQgxr_Dw
+H: Authorization=Bearer t1.YYY
 BODY x-www-form-urlencoded
 lang=ru-RU
 voice=filipp
-folderId=b1gqspa47tebubmosntn
+folderId=ZZZ
