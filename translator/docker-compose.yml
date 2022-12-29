@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  docker-translate:
+    build: .
+    image: docker-translate
+    container_name: docker-translate
+    ports:
+      - "80:8080"
+    environment:
+      - hello=world
