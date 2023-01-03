@@ -20,3 +20,9 @@ Step 4 - песни БД
 https://teksty-pesenok.ru/
 
 Step 5 - сохранение загадок?
+Через шару урла?
+
+
+TODO favicon, styles,
+TODO anonym donate
+TODO песни редирект?
