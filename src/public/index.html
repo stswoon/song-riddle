@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Song Riddle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="//code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+<div id="songTextsDialog" title="Поиск песен">
+    <iframe src="https://teksty-pesenok.ru/" height="400" width="900"></iframe>
+</div>
+
+<div class="content">
+    <div class="sourceSong">
+        <div>
+            <textarea id="from" rows="30" cols="40">
+Маленькой елочке
+Холодно зимой.
+Из лесу елочку
+Взяли мы домой.
+Из лесу елочку
+Взяли мы домой.
+
+Сколько на елочке
+Шариков цветных,
+Розовых пряников,
+Шишек золотых!
+Розовых пряников,
+Шишек золотых!
+            </textarea>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="search()">Поиск песен</button>
+
+        <br/><br/>
+        <button onclick="randomLangs()">Случайный язык</button>
+        <select id="langSource"></select>
+        <select id="lang1"></select>
+        <select id="lang2"></select>
+        <select id="lang3"></select>
+        <select id="lang4"></select>
+        <select id="langFinal"></select>
+        <button onclick="public_translate(this)">Перевод (lingva.ml)</button>
+        <div id="progressbarTranslate">
+            <div class="loader"></div>
+        </div>
+        <br/><br/>
+
+        <button onclick="speak()">Читать</button>
+        <button onclick="public_stop()" disabled id="stop">Стоп</button>
+        <button onclick="public_read()">Скачать</button>
+        <a id="download" href="#" download="voice.mp3" id="download">Download</a>
+    </div>
+
+    <div class="riddleSong">
+        <div>
+            <textarea id="to" rows="30" cols="40"></textarea>
+        </div>
+
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+
+</html>

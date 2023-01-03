@@ -2,16 +2,14 @@
   "name": "song-riddle",
   "version": "1.0.0",
   "scripts": {
-    "start": "node server.js",
-    "dev": "cross-env dev=true nodemon server.js --dev"
+    "start": "node src/server.js",
+    "dev": "cross-env dev=true nodemon src/server.js --dev"
   },
   "license": "ISC",
   "dependencies": {
-    "@vitalets/google-translate-api": "^9.0.0",
     "cross-env": "^7.0.3",
     "express": "^4.15.2",
-    "node-fetch": "^2.6.7",
-    "puppeteer": "^19.3.0"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

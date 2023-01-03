@@ -2,7 +2,7 @@ version: "3"
 
 services:
   docker-translate:
-    build: .
+    build: ""
     image: docker-translate
     container_name: docker-translate
     ports:

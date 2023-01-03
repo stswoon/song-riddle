@@ -1,15 +1,15 @@
 const express = require('express');
-const {translate} = require('./puppeteer-run');
-const {translateWrap} = require('./g-translate-lib');
+const {translate} = require('./translate');
 const {voice} = require("./voxworker");
 
-const unexpectedExceptionHandle = (cause) => console.error("Something went wrong: ", cause);
-process.on('uncaughtException', unexpectedExceptionHandle);
-process.on('unhandledRejection', unexpectedExceptionHandle);
 
 const app = express();
 app.get('/health', (req, res) => res.send('OK'));
 app.use(express.static(__dirname + '/public', {extensions: ['html']}));
+
+const unexpectedExceptionHandle = (cause) => console.error("Something went wrong: ", cause);
+process.on('uncaughtException', unexpectedExceptionHandle);
+process.on('unhandledRejection', unexpectedExceptionHandle);
 app.use((error, req, res, next) => {
     unexpectedExceptionHandle(error);
     res.status(500).send("Server Error");
@@ -20,21 +20,8 @@ app.get('/translate', async (req, res) => {
     let text = decodeURIComponent(req.query.text);
     let langs = req.query.langs;
     langs = langs.split(",");
-    try {
-        for (let i = 0; i < langs.length - 1; i++) {
-            text = await translateWrap(text, langs[i], langs[i + 1]);
-            console.log(langs[i] + " -> " + langs[i + 1]);
-            console.log(text);
-        }
-    } catch (e) {
-        if (e.name === "TooManyRequestsError") {
-            console.info("use fallback via browser");
-            for (let i = 0; i < langs.length - 1; i++) {
-                text = await translate(text, langs[i], langs[i + 1]);
-                console.log(langs[i] + " -> " + langs[i + 1]);
-                console.log(text);
-            }
-        }
+    for (let i = 0; i < langs.length - 1; i++) {
+        text = await translate(text, langs[i], langs[i + 1]);
     }
     res.contentType("text").send(text);
 });
