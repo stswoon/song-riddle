@@ -136,12 +136,12 @@ async function restTranslate(text, langs) {
     return res;
 }
 
-VOICE_CHUNK = 190;
+VOICE_CHUNK = 170; //max ~200, reduce because of /n and just in case
 
 function speak() {
     const tts = (text) => {
         const U = new SpeechSynthesisUtterance();
-        U.pitch = 0;
+        //U.pitch = 1;
         U.rate = 0.9;
         U.volume = 1;
 
