@@ -1,6 +1,3 @@
-window.public_read = read;
-window.public_stop = stop;
-
 function randomLangs() {
     const setLang = (id, lang) => document.getElementById(id).value = lang;
     const randomLang = () => {
@@ -103,9 +100,9 @@ constructSelect("langFinal", langsFinal, "ru", true);
 
 window.public_translate = translate;
 
-async function translate(button) {
-    const getLang = (id) => document.getElementById(id).value;
+const getLang = (id) => document.getElementById(id).value;
 
+async function translate(button) {
     let langs = [];
     langs.push(getLang("langSource"));
     langs.push(getLang("lang1"));
@@ -139,57 +136,42 @@ async function restTranslate(text, langs) {
     return res;
 }
 
+VOICE_CHUNK = 190;
 
-function speak2() {
-    // const U = new SpeechSynthesisUtterance("Привет как дела");
-    // speechSynthesis.speak(U);
+function speak() {
+    const tts = (text) => {
+        const U = new SpeechSynthesisUtterance();
+        U.pitch = 0;
+        U.rate = 0.9;
+        U.volume = 1;
 
-    const U = new SpeechSynthesisUtterance();
-    U.voiceURI = "Google русский";
-    U.lang = "ru-RU";
-    U.pitch = 1;
-    U.rate = 0.9;
-    U.volume = 1;
-    // U.rvIndex = 0;
-    // U.rvTotal = 1;
-    // const voices = speechSynthesis.getVoices();
-    // console.log(voices);
-    // U.voice = voices[18];
-    U.text = "Привет как дела";
-    speechSynthesis.speak(U);
-}
+        const langVoiceMapping = langVoiceMappings.find(mapping => mapping.lingvaMlValue === getLang("langFinal"));
+        U.voiceURI = langVoiceMapping.voiceVoiceURI; //"Google русский";
+        U.lang = langVoiceMapping.voiceLang; //"ru-RU";
+        U.text = text;
+        speechSynthesis.speak(U);
+    };
 
-let audio;
+    speechSynthesis.cancel();
 
-
-//TODO: пропуск строк как будто спец символы даже вручную на сайте
-async function read() {
-    responsiveVoice.speak("Привет как дела", "Russian Female");
-
-
-    const text = document.getElementById("to").value;
-    const res = await restRead(text);
-
-    const downloadUrl = res.downloadUrl;
-    document.getElementById("download").href = downloadUrl;
-
-    document.getElementById("stop").disabled = false;
-    const url = res.voiceUrl;
-    audio = new Audio(url);
-    audio.play();
-}
-
-//also maybe https://cloud.google.com/text-to-speech/docs/voices
-//https://ttsmp3.com/text-to-speech/Russian/
-async function restRead(text) {
-    const pause = " -. "; //pause to avoid deletion dublicated text (which is ofter for songs in the end of paragraph) during tts
-    text = text.replaceAll("\n", pause).replaceAll("\r", pause);
-    text = encodeURIComponent(text);
-    let res = await fetch(`read?text=${text}`);
-    res = await res.json();
-    return res;
+    let text = document.getElementById("to").value;
+    while (text.length) {
+        let subText = "";
+        if (text.length >= VOICE_CHUNK) {
+            let subTextApproximate = text.substring(0, VOICE_CHUNK);
+            let lastSpaceIndex = subTextApproximate.lastIndexOf("\n");
+            lastSpaceIndex = lastSpaceIndex || text.length;
+            subText = text.substring(0, lastSpaceIndex);
+            text = text.substring(lastSpaceIndex, text.length);
+        } else {
+            subText = text;
+            text = "";
+        }
+        tts(subText);
+        console.log("Voice chunk: " + subText);
+    }
 }
 
 function stop() {
-    audio.pause()
+    speechSynthesis.cancel();
 }
