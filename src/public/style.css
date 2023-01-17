@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+.translateButton {
+    display: flex;
+}
+
 /* loader from https://loading.io/css/ */
 #progressbarTranslate {
     display: none;

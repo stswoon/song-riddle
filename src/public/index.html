@@ -16,13 +16,13 @@
 <body>
 
 <div id="songTextsDialog" title="Поиск песен">
-    <iframe src="https://teksty-pesenok.ru/" height="400" width="900"></iframe>
+    <iframe id="songTextsDialogIframe" height="400" width="900"></iframe>
 </div>
 
 <div class="content">
     <div class="sourceSong">
         <div>
-            <textarea id="from" rows="30" cols="40">
+            <textarea id="from" rows="25" cols="30">
 Маленькой елочке
 Холодно зимой.
 Из лесу елочку
@@ -38,33 +38,53 @@
 Шишек золотых!
             </textarea>
         </div>
+        <input type="checkbox" onchange="hide()">Скрыть</input>
     </div>
 
     <div class="controls">
-        <button onclick="search()">Поиск песен</button>
+        <button onclick="search()">Поиск песен<br/>(teksty-pesenok.ru)</button>
 
         <br/><br/>
-        <button onclick="randomLangs()">Случайный язык</button>
-        <select id="langSource"></select>
+
+        Начальный язык: <select id="langSource"></select>
+
+        <br/><br/>
+        <button onclick="randomLangs()">Случайные языки</button>
         <select id="lang1"></select>
         <select id="lang2"></select>
         <select id="lang3"></select>
         <select id="lang4"></select>
-        <select id="langFinal"></select>
-        <button onclick="public_translate(this)">Перевод (lingva.ml)</button>
-        <div id="progressbarTranslate">
-            <div class="loader"></div>
-        </div>
+        <select id="lang5"></select>
         <br/><br/>
+
+        Конечный язык: <select id="langFinal"></select>
+
+        <br/><br/>
+
+        <button class="translateButton" onclick="public_translate(this)">
+            <div>Перевод<br/>(lingva.ml)</div>
+            <div id="progressbarTranslate">
+                <div class="loader"></div>
+            </div>
+        </button>
+
+        <br/>
 
         <button onclick="speak()">Читать</button>
         <button onclick="stop()">Стоп</button>
+
+        <br/><br/>
+
+        <div class="donate">
+            <a href="https://boosty.to/stswoon/single-payment/donation/312374?share=target_link">Donate</a>
+        </div>
     </div>
 
     <div class="riddleSong">
         <div>
-            <textarea id="to" rows="30" cols="40"></textarea>
+            <textarea id="to" rows="25" cols="30"></textarea>
         </div>
+        <button onclick="share()">Поделиться</button>
     </div>
 </div>
 

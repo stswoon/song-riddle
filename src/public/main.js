@@ -8,11 +8,13 @@ function randomLangs() {
     setLang("lang2", randomLang());
     setLang("lang3", randomLang());
     setLang("lang4", randomLang());
+    setLang("lang5", randomLang());
 }
 
 $("#songTextsDialog").dialog({autoOpen: false, width: 940});
 
 function search() {
+    document.getElementById("songTextsDialogIframe").src = "https://teksty-pesenok.ru";
     $("#songTextsDialog").dialog("open");
 }
 
@@ -94,6 +96,7 @@ constructSelect("lang1", langs, "en", true);
 constructSelect("lang2", langs);
 constructSelect("lang3", langs);
 constructSelect("lang4", langs);
+constructSelect("lang5", langs);
 const langsFinal = {};
 langVoiceMappings.forEach(item => langsFinal[item.lingvaMlValue] = item.lingvaMlText);
 constructSelect("langFinal", langsFinal, "ru", true);
@@ -109,6 +112,7 @@ async function translate(button) {
     getLang("lang2") && langs.push(getLang("lang2"));
     getLang("lang3") && langs.push(getLang("lang3"));
     getLang("lang4") && langs.push(getLang("lang4"));
+    getLang("lang5") && langs.push(getLang("lang5"));
     langs.push(getLang("langFinal"));
     langs = langs.join(",");
 
@@ -174,4 +178,16 @@ function speak() {
 
 function stop() {
     speechSynthesis.cancel();
+}
+
+function hide() {
+    if (document.getElementById("from").style.color === "aliceblue") {
+        document.getElementById("from").style.color = "black";
+    } else {
+        document.getElementById("from").style.color = "aliceblue";
+    }
+}
+
+function share() {
+    alert("TODO");
 }

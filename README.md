@@ -1,5 +1,7 @@
 # song-riddle
 
+https://stswoon-song-riddle.onrender.com
+
 ## Architecture
 
 Step 1 - deploy - https://stswoon-song-riddle.onrender.com
@@ -24,5 +26,5 @@ Step 5 - сохранение загадок?
 
 
 TODO favicon, styles,
-TODO anonym donate
 TODO песни редирект?
+todo html 1.1.
