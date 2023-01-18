@@ -3,17 +3,22 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Song Riddle v0.2</title>
+    <title>Song Riddle v0.3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="//code.jquery.com/jquery-3.6.0.js"></script>
     <script src="//code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/css/uikit.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit-icons.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body>
+<body class="body-style">
 
 <div id="songTextsDialog" title="Поиск песен">
     <iframe id="songTextsDialogIframe" height="400" width="900"></iframe>
@@ -38,30 +43,32 @@
 Шишек золотых!
             </textarea>
         </div>
-        <input type="checkbox" onchange="hide()">Скрыть</input>
+        <input type="checkbox" onchange="hide()" class="uk-checkbox"> Скрыть</input>
     </div>
 
     <div class="controls">
-        <button onclick="search()">Поиск песен<br/>(teksty-pesenok.ru)</button>
+        <button onclick="search()" class="uk-button uk-button-default uk-button-small">Поиск песен<br/>(teksty-pesenok.ru)
+        </button>
 
-        <br/><br/>
+        Начальный язык: <select id="langSource" class="uk-select"></select>
 
-        Начальный язык: <select id="langSource"></select>
+        Языки для перевода:
+        <button onclick="randomLangs()" class="uk-button uk-button-secondary uk-button-small">выбрать случайно
+        </button>
 
-        <br/><br/>
-        <button onclick="randomLangs()">Случайные языки</button>
-        <select id="lang1"></select>
-        <select id="lang2"></select>
-        <select id="lang3"></select>
-        <select id="lang4"></select>
-        <select id="lang5"></select>
-        <br/><br/>
 
-        Конечный язык: <select id="langFinal"></select>
+        <select id="lang1" class="uk-select"></select>
+        <select id="lang2" class="uk-select"></select>
+        <select id="lang3" class="uk-select"></select>
+        <select id="lang4" class="uk-select"></select>
+        <select id="lang5" class="uk-select"></select>
 
-        <br/><br/>
+        Конечный язык: <select id="langFinal" class="uk-select"></select>
 
-        <button class="translateButton" onclick="public_translate(this)">
+        <br/>
+
+        <button class="translateButton uk-button uk-button-primary uk-button-small"
+                onclick="public_translate(this)">
             <div>Перевод<br/>(lingva.ml)</div>
             <div id="progressbarTranslate">
                 <div class="loader"></div>
@@ -70,13 +77,9 @@
 
         <br/>
 
-        <button onclick="speak()">Читать</button>
-        <button onclick="stop()">Стоп</button>
-
-        <br/><br/>
-
-        <div class="donate">
-            <a href="https://boosty.to/stswoon/single-payment/donation/312374?share=target_link">Donate</a>
+        <div>
+            <button onclick="speak()" class="uk-button uk-button-primary uk-button-small">Читать</button>
+            <button onclick="stop()" class="uk-button uk-button-default uk-button-small">Стоп</button>
         </div>
     </div>
 
@@ -84,7 +87,15 @@
         <div>
             <textarea id="to" rows="25" cols="30"></textarea>
         </div>
-        <button onclick="share()">Поделиться</button>
+
+        <div class="flex-string">
+            <button onclick="share()" class="uk-button uk-button-secondary uk-button-small">Поделиться</button>
+
+            <div class="donate">
+                <a href="https://boosty.to/stswoon/single-payment/donation/312374?share=target_link"
+                   class="uk-button uk-button-text">Donate</a>
+            </div>
+        </div>
     </div>
 </div>
 

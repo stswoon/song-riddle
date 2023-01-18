@@ -1,10 +1,22 @@
+.body-style {
+    /*background: #e7b26c2b;*/
+    /*background: antiquewhite;*/
+
+}
+
 .content {
     display: flex;
     flex-direction: row;
+    background: #e7b26c2b;
+    justify-content: space-around;
+    max-width: 1000px;
+    margin: auto;
 }
 
 .controls {
     width: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
 .controls select {
@@ -13,6 +25,11 @@
 
 .translateButton {
     display: flex;
+}
+
+.flex-string {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* loader from https://loading.io/css/ */

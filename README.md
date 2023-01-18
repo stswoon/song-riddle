@@ -22,9 +22,13 @@ Step 4 - песни БД
 https://teksty-pesenok.ru/
 
 Step 5 - сохранение загадок?
-Через шару урла?
+TODO: Через шару урла в base 64?
+
+Step 6 - стилизация
+https://getuikit.com/
 
 
-TODO favicon, styles,
+TODO styles,
 TODO песни редирект?
-todo html 1.1.
+TODO html 1.1 - server events
+TODO mobile
