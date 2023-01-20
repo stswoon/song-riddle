@@ -28,7 +28,5 @@ Step 6 - стилизация
 https://getuikit.com/
 
 
-TODO styles,
-TODO песни редирект?
 TODO html 1.1 - server events
 TODO mobile
