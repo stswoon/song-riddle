@@ -19,7 +19,7 @@ https://stackoverflow.com/questions/59061345/how-to-save-speechsynthesis-audio-t
 https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
 
 Step 4 - песни БД
-https://teksty-pesenok.ru/
+https://teksty-pesenok.ru/ (нет копирайта, поэтому можно юзать)
 
 Step 5 - сохранение загадок 
 Через шару урла в base 64
