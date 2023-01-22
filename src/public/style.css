@@ -83,17 +83,21 @@
 
 @media (max-width:641px) {
     .uk-heading-small {
-        /* display: none; */
+        display: none;
     }
 
     .uk-text-meta {
         display: none;
     }
 
+    .uk-button {
+        font-size: 12px;
+    }
+
     .content {
-        min-width: 440px;
+        min-width: 300px;
         display: grid;
-        gap: 10px;
+        gap: 2px;
         /* height: 100vh; */
         grid-template-areas:
             "A B"
@@ -115,10 +119,11 @@
 
     .content-item {
         width: 100%;
-        min-width: 100px;
+        min-width: 120px;
     }
 
     .uk-textarea {
         height: 200px;
+        min-width: 120px;
     }
 }
