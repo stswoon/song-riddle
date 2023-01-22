@@ -106,6 +106,7 @@
                 onclick="public_translate(this)">
                 <div>Перевод<br />(lingva.ml)</div>
                 <div id="progressbarTranslate">
+                    <div class="loaderPercentage" id="loaderPercentage">10%</div>
                     <div class="loader"></div>
                 </div>
             </button>
@@ -121,7 +122,7 @@
             <div class="flex-string">
                 <button onclick="speak()" class="uk-button uk-button-primary uk-button-small">Читать</button>
                 <button onclick="stop()" class="uk-button uk-button-default uk-button-small">Стоп</button>
-                <!--            <button onclick="share()" class="uk-button uk-button-secondary uk-button-small">Поделиться</button>-->
+
                 <button onclick="share()" class="uk-button uk-button-secondary uk-button-small share-button">
                     <svg fill="#000000" height="24px" width="24px" viewBox="0 0 227.216 227.216" xml:space="preserve">
                         <path fill="#FFFFFF" d="M175.897,141.476c-13.249,0-25.11,6.044-32.98,15.518l-51.194-29.066c1.592-4.48,2.467-9.297,2.467-14.317

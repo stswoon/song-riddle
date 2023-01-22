@@ -71,6 +71,12 @@
     animation: loaderRotation 1s linear infinite;
 }
 
+.loaderPercentage {
+    position: absolute;
+    padding-top: 4px;
+    padding-left: 8px;
+}
+
 @keyframes loaderRotation {
     0% {
         transform: rotate(0deg);

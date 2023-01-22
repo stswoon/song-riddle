@@ -122,14 +122,15 @@ async function translate(button) {
     getLang("lang4") && langs.push(getLang("lang4"));
     getLang("lang5") && langs.push(getLang("lang5"));
     langs.push(getLang("langFinal"));
-    langs = langs.join(",");
+    langsString = langs.join(",");
 
     let text = document.getElementById("from").value;
 
     button.disabled = true;
     document.getElementById("progressbarTranslate").style.display = 'block';
     try {
-        text = await restTranslate(text, langs);
+        // text = await sourceEventTranslate(text, langsString);
+        text = await restTranslate(text, langsString);
     } catch (e) {
         console.error("Failed to translate", e);
         UIkit.notification('Ошибка конвертации');
@@ -146,6 +147,36 @@ async function restTranslate(text, langs) {
     let res = await fetch(url);
     res = res.text();
     return res;
+}
+
+async function sourceEventTranslate(text, langs) {
+    eventSource = new EventSource('digits');
+
+    eventSource.onopen = function (e) {
+        log("Событие: open");
+    };
+
+    eventSource.onerror = function (e) {
+        log("Событие: error");
+        if (this.readyState == EventSource.CONNECTING) {
+            log(`Переподключение (readyState=${this.readyState})...`);
+        } else {
+            log("Произошла ошибка.");
+        }
+    };
+
+    eventSource.onmessage = function (e) {
+        log("Событие: message, данные: " + e.data);
+
+        i = 1;
+        n = langs.length;
+        document.getElementById("loaderPercentage").innerHTML = Math.round(i * (100 / n));
+    };
+
+    function stop() { // когда нажата кнопка "Стоп"
+        eventSource.close();
+        log("Соединение закрыто");
+    }
 }
 
 VOICE_CHUNK = 170; //max ~200, reduce because of /n and just in case
@@ -214,6 +245,7 @@ function share() {
 
     navigator.clipboard.writeText(url).then(function () {
         console.log('Copying to clipboard was successful, text: ' + url);
+        UIkit.notification("Ссылка скопирована в буфер обмена");
     }, function (e) {
         console.error('Could not copy text: ', e);
         UIkit.notification("Ошибка копирования в буфер обмена, ссылка: " + url);
