@@ -132,7 +132,7 @@ async function translate(button) {
         text = await restTranslate(text, langs);
     } catch (e) {
         console.error("Failed to translate", e);
-        alert("Ошибка конвертации");
+        UIkit.notification('Ошибка конвертации');
     }
     document.getElementById("progressbarTranslate").style.display = 'none';
     button.disabled = false;
@@ -216,7 +216,7 @@ function share() {
         console.log('Copying to clipboard was successful, text: ' + url);
     }, function (e) {
         console.error('Could not copy text: ', e);
-        alert("Ошибка копирования в буфер обмена, ссылка: " + url)
+        UIkit.notification("Ошибка копирования в буфер обмена, ссылка: " + url);
     });
 
     //window.open(window.location.origin + "?share=" + res);
@@ -242,7 +242,7 @@ function loadIfShare() {
             setLang("langFinal", state.langFinal);
         } catch (e) {
             console.error("Failed to parse state from share query param", e);
-            alert("Ошибка обработки шаренной ссылки");
+            UIkit.notification('Ошибка обработки шаренной ссылки');
         }
         window.history.replaceState({}, undefined, "/");
     }
