@@ -25,7 +25,7 @@
 
 <body class="body-style">
 
-    <h1 class="uk-heading-small">Song Riddle v0.4</h1>
+    <h1 class="uk-heading-small">Song Riddle v0.5</h1>
     <!--<h6>Song Riddle v0.4</h6>-->
     <p class="uk-text-meta">Викторина-загадка: загадай песню (или стих), переведи на другой язык или несколько,
         прослушай текст с потерей некоторых слов (или даже на другом языке) и попытайся отгадать.</p>
@@ -65,7 +65,7 @@
                 </textarea>
             </div>
 
-            <br />
+            <br class="mybr" />
 
             <div class="flex-string">
                 <div>
@@ -83,7 +83,7 @@
                 Поиск песен<br />(teksty-pesenok.ru)
             </button>
 
-            <br />
+            <br class="mybr" />
 
             Начальный язык: <select id="langSource" class="uk-select"></select>
 
@@ -91,7 +91,6 @@
             <button onclick="randomLangs()" class="uk-button uk-button-secondary uk-button-small">
                 выбрать случайно
             </button>
-
 
             <select id="lang1" class="uk-select"></select>
             <select id="lang2" class="uk-select"></select>
@@ -101,7 +100,7 @@
 
             Конечный язык: <select id="langFinal" class="uk-select"></select>
 
-            <br />
+            <br class="mybr" />
 
             <button class="translateButton uk-button uk-button-primary uk-button-small"
                 onclick="public_translate(this)">
@@ -117,7 +116,7 @@
                 <textarea class="uk-textarea" id="to" rows="25" cols="35"></textarea>
             </div>
 
-            <br />
+            <br class="mybr" />
 
             <div class="flex-string">
                 <button onclick="speak()" class="uk-button uk-button-primary uk-button-small">Читать</button>
