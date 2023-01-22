@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Song Riddle v0.4</title>
-    <meta name="description" content="Викторина-загадка: загадай песню, переведи на другой язык или несколько, прослушай перевод и попытайся отгадать.">
+    <meta name="description"
+        content="Викторина-загадка: загадай песню (или стих), переведи на другой язык или несколько, прослушай текст с потерей некоторых слов (или даже на другом языке) и попытайся отгадать.">
     <meta name="keywords" content="Song, Riddle, Translate, Песня, Загадка, Викторина, Перевод, Другие языки, Чтение">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -13,27 +14,38 @@
     <script src="//code.jquery.com/jquery-3.6.0.js"></script>
     <script src="//code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/css/uikit.min.css"/>
-<!--    <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit.min.js"></script>-->
-<!--    <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit-icons.min.js"></script>-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/css/uikit.min.css" />
+    <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit-icons.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.4/base64.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body class="body-style">
 
-<h1 class="uk-heading-medium">Song Riddle v0.4</h1>
-<!--<h6>Song Riddle v0.4</h6>-->
-<p class="uk-text-meta">Викторина-загадка: загадай песню, переведи на другой язык или несколько, прослушай перевод и попытайся отгадать.</p>
+    <h1 class="uk-heading-small">Song Riddle v0.4</h1>
+    <!--<h6>Song Riddle v0.4</h6>-->
+    <p class="uk-text-meta">Викторина-загадка: загадай песню (или стих), переведи на другой язык или несколько,
+        прослушай текст с потерей некоторых слов (или даже на другом языке) и попытайся отгадать.</p>
 
-<div id="songTextsDialog" title="Поиск песен">
-    <iframe id="songTextsDialogIframe" height="400" width="900"></iframe>
-</div>
+    <div id="searchSongModal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-dialog-large uk-width-auto">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-modal-header">
+                <h2 class="uk-modal-title">Поиск песен</h2>
+            </div>
+            <div class="uk-modal-body">
+                <iframe id="songTextsDialogIframe" height="600" width="100%"></iframe>
+            </div>
+        </div>
+    </div>
 
-<div class="content">
-    <div class="sourceSong">
-        <div>
-            <textarea id="from" rows="27" cols="35">
+    <div class="content">
+        <div class="sourceSong content-item">
+            <div class="textarea-content">
+                <textarea class="uk-textarea" id="from" rows="25" cols="35">
 Пусть луна светит ярко
 Обгоняем иномарку
 Везу девочку-бунтарку
@@ -50,51 +62,70 @@
 Нас догнала иномарка
 Я прошу лишь не ломайся
 Как российский автопром
-            </textarea>
-        </div>
-        <input type="checkbox" onchange="hide()" class="uk-checkbox"> Скрыть</input>
-    </div>
-
-    <div class="controls">
-        <button onclick="search()" class="uk-button uk-button-default uk-button-small">Поиск песен<br/>(teksty-pesenok.ru)
-        </button>
-
-        Начальный язык: <select id="langSource" class="uk-select"></select>
-
-        Языки для перевода:
-        <button onclick="randomLangs()" class="uk-button uk-button-secondary uk-button-small">выбрать случайно
-        </button>
-
-
-        <select id="lang1" class="uk-select"></select>
-        <select id="lang2" class="uk-select"></select>
-        <select id="lang3" class="uk-select"></select>
-        <select id="lang4" class="uk-select"></select>
-        <select id="lang5" class="uk-select"></select>
-
-        Конечный язык: <select id="langFinal" class="uk-select"></select>
-
-        <button class="translateButton uk-button uk-button-primary uk-button-small"
-                onclick="public_translate(this)">
-            <div>Перевод<br/>(lingva.ml)</div>
-            <div id="progressbarTranslate">
-                <div class="loader"></div>
+                </textarea>
             </div>
-        </button>
-    </div>
 
-    <div class="riddleSong">
-        <div>
-            <textarea id="to" rows="27" cols="35"></textarea>
+            <br />
+
+            <div class="flex-string">
+                <div>
+                    <input id="hideFrom" type="checkbox" onchange="hide(this.checked)" class="uk-checkbox">
+                    Скрыть
+                    </input>
+                </div>
+                <button onclick="clearInputTextArea()"
+                    class="uk-button uk-button-secondary uk-button-small">Отчистить</button>
+            </div>
         </div>
 
-        <div class="flex-string">
-            <button onclick="speak()" class="uk-button uk-button-primary uk-button-small">Читать</button>
-            <button onclick="stop()" class="uk-button uk-button-default uk-button-small">Стоп</button>
-            <!--            <button onclick="share()" class="uk-button uk-button-secondary uk-button-small">Поделиться</button>-->
-            <button onclick="share()" class="uk-button uk-button-secondary uk-button-small share-button">
-                <svg fill="#000000" height="24px" width="24px" viewBox="0 0 227.216 227.216" xml:space="preserve">
-                    <path fill="#FFFFFF" d="M175.897,141.476c-13.249,0-25.11,6.044-32.98,15.518l-51.194-29.066c1.592-4.48,2.467-9.297,2.467-14.317
+        <div class="controls content-item">
+            <button onclick="searchSong()" class="uk-button uk-button-default uk-button-small">
+                Поиск песен<br />(teksty-pesenok.ru)
+            </button>
+
+            <br />
+
+            Начальный язык: <select id="langSource" class="uk-select"></select>
+
+            Языки для перевода:
+            <button onclick="randomLangs()" class="uk-button uk-button-secondary uk-button-small">
+                выбрать случайно
+            </button>
+
+
+            <select id="lang1" class="uk-select"></select>
+            <select id="lang2" class="uk-select"></select>
+            <select id="lang3" class="uk-select"></select>
+            <select id="lang4" class="uk-select"></select>
+            <select id="lang5" class="uk-select"></select>
+
+            Конечный язык: <select id="langFinal" class="uk-select"></select>
+
+            <br />
+
+            <button class="translateButton uk-button uk-button-primary uk-button-small"
+                onclick="public_translate(this)">
+                <div>Перевод<br />(lingva.ml)</div>
+                <div id="progressbarTranslate">
+                    <div class="loader"></div>
+                </div>
+            </button>
+        </div>
+
+        <div class="riddleSong content-item">
+            <div class="textarea-content">
+                <textarea class="uk-textarea" id="to" rows="25" cols="35"></textarea>
+            </div>
+
+            <br />
+
+            <div class="flex-string">
+                <button onclick="speak()" class="uk-button uk-button-primary uk-button-small">Читать</button>
+                <button onclick="stop()" class="uk-button uk-button-default uk-button-small">Стоп</button>
+                <!--            <button onclick="share()" class="uk-button uk-button-secondary uk-button-small">Поделиться</button>-->
+                <button onclick="share()" class="uk-button uk-button-secondary uk-button-small share-button">
+                    <svg fill="#000000" height="24px" width="24px" viewBox="0 0 227.216 227.216" xml:space="preserve">
+                        <path fill="#FFFFFF" d="M175.897,141.476c-13.249,0-25.11,6.044-32.98,15.518l-51.194-29.066c1.592-4.48,2.467-9.297,2.467-14.317
                     c0-5.019-0.875-9.836-2.467-14.316l51.19-29.073c7.869,9.477,19.732,15.523,32.982,15.523c23.634,0,42.862-19.235,42.862-42.879
                     C218.759,19.229,199.531,0,175.897,0C152.26,0,133.03,19.229,133.03,42.865c0,5.02,0.874,9.838,2.467,14.319L84.304,86.258
                     c-7.869-9.472-19.729-15.514-32.975-15.514c-23.64,0-42.873,19.229-42.873,42.866c0,23.636,19.233,42.865,42.873,42.865
@@ -104,23 +135,20 @@
                     C148.03,27.5,160.531,15,175.897,15z M51.33,141.476c-15.369,0-27.873-12.501-27.873-27.865c0-15.366,12.504-27.866,27.873-27.866
                     c15.363,0,27.861,12.5,27.861,27.866C79.191,128.975,66.692,141.476,51.33,141.476z M175.897,212.216
                     c-15.366,0-27.867-12.501-27.867-27.865c0-15.37,12.501-27.875,27.867-27.875c15.363,0,27.862,12.505,27.862,27.875
-                    C203.759,199.715,191.26,212.216,175.897,212.216z"/>
-                </svg>
-            </button>
-        </div>
+                    C203.759,199.715,191.26,212.216,175.897,212.216z" />
+                    </svg>
+                </button>
+            </div>
 
-        <br/>
-
-        <div class="flex-string">
-            <div class="donate">
-                <a href="https://boosty.to/stswoon/single-payment/donation/312374?share=target_link"
-                   class="uk-button uk-button-text">Donate</a>
+            <div class="flex-string">
+                <div class="donate">
+                    <a href="https://yoomoney.ru/to/41001998657825" class="uk-button uk-button-text">Donate</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>

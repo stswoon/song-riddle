@@ -4,7 +4,7 @@ https://stswoon-song-riddle.onrender.com
 
 ## Architecture
 
-Step 1 - deploy - https://stswoon-song-riddle.onrender.com
+Step 1 - deploy - https://render.com/
 
 Step 2 - translate - https://lingva.ml/api/v1/${fromLang}/${toLang}/${encodeURIComponent(text)}
 https://github.com/thedaviddelta/lingva-translate
@@ -28,7 +28,5 @@ Step 6 - стилизация
 https://getuikit.com/
 
 
-TODO html 1.1 - server events
+TODO html 1.1 - server events + loading
 TODO mobile styles
-TODO change donate
-TODO: share

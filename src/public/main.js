@@ -1,5 +1,4 @@
 function randomLangs() {
-    const setLang = (id, lang) => document.getElementById(id).value = lang;
     const randomLang = () => {
         const items = Object.keys(langs);
         return items[Math.floor(Math.random() * items.length)];
@@ -11,11 +10,15 @@ function randomLangs() {
     setLang("lang5", randomLang());
 }
 
-$("#songTextsDialog").dialog({autoOpen: false, width: 940});
+window.onload = function () {
+    loadIfShare();
+};
 
-function search() {
-    document.getElementById("songTextsDialogIframe").src = "https://teksty-pesenok.ru";
-    $("#songTextsDialog").dialog("open");
+function searchSong() {
+    if (!document.getElementById("songTextsDialogIframe").src) {
+        document.getElementById("songTextsDialogIframe").src = "https://teksty-pesenok.ru";
+    }
+    UIkit.modal('#searchSongModal').show();
 }
 
 //some langs from https://lingva.ml/api/v1/languages
@@ -92,7 +95,7 @@ function constructSelect(id, langs, selectLang, hideEmpty) {
 }
 
 constructSelect("langSource", langs, "ru", true);
-constructSelect("lang1", langs, "en", true);
+constructSelect("lang1", langs, "en");
 constructSelect("lang2", langs);
 constructSelect("lang3", langs);
 constructSelect("lang4", langs);
@@ -103,7 +106,12 @@ constructSelect("langFinal", langsFinal, "ru", true);
 
 window.public_translate = translate;
 
-const getLang = (id) => document.getElementById(id).value;
+function getLang(id) {
+    return document.getElementById(id).value;
+}
+function setLang(id, lang) {
+    document.getElementById(id).value = lang;
+}
 
 async function translate(button) {
     let langs = [];
@@ -180,14 +188,66 @@ function stop() {
     speechSynthesis.cancel();
 }
 
-function hide() {
-    if (document.getElementById("from").style.color === "aliceblue") {
-        document.getElementById("from").style.color = "black";
-    } else {
+function hide(flag) {
+    if (flag) {
         document.getElementById("from").style.color = "aliceblue";
+    } else {
+        document.getElementById("from").style.color = "black";
     }
 }
 
 function share() {
-    alert("TODO");
+    let state = {
+        from: document.getElementById("from").value,
+        hideFrom: document.getElementById("hideFrom").checked,
+        to: document.getElementById("to").value,
+        langSource: getLang("langSource"),
+        lang1: getLang("lang1"),
+        lang2: getLang("lang2"),
+        lang3: getLang("lang3"),
+        lang4: getLang("lang4"),
+        lang5: getLang("lang5"),
+        langFinal: getLang("langFinal")
+    };
+    let res = Base64.encodeURI(JSON.stringify(state));
+    url = window.location.origin + "?share=" + res;
+
+    navigator.clipboard.writeText(url).then(function () {
+        console.log('Copying to clipboard was successful, text: ' + url);
+    }, function (e) {
+        console.error('Could not copy text: ', e);
+        alert("Ошибка копирования в буфер обмена, ссылка: " + url)
+    });
+
+    //window.open(window.location.origin + "?share=" + res);
+}
+
+function loadIfShare() {
+    let urlParams = new URLSearchParams(window.location.search);
+    let share = urlParams.get('share');
+    if (share) {
+        try {
+            let state = JSON.parse(Base64.decode(share));
+
+            document.getElementById("from").value = state.from;
+            document.getElementById("hideFrom").checked = state.hideFrom;
+            hide(state.hideFrom);
+            document.getElementById("to").value = state.to;
+            setLang("langSource", state.langSource);
+            setLang("lang1", state.lang1);
+            setLang("lang2", state.lang2);
+            setLang("lang3", state.lang3);
+            setLang("lang4", state.lang4);
+            setLang("lang5", state.lang5);
+            setLang("langFinal", state.langFinal);
+        } catch (e) {
+            console.error("Failed to parse state from share query param", e);
+            alert("Ошибка обработки шаренной ссылки");
+        }
+        window.history.replaceState({}, undefined, "/");
+    }
+}
+
+function clearInputTextArea() {
+    document.getElementById("from").value = "";
 }

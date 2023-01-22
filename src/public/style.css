@@ -1,13 +1,23 @@
 .body-style {
-    /*background: #e7b26c2b;*/
-    /*background: antiquewhite;*/
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*text-align: center;*/
     height: 100vh;
     background-color: #e7b26c2b;
-    background-image: radial-gradient(#e7b26c2b, rgba(255,255,255,1));
+    background-image: radial-gradient(#e7b26c2b, rgba(255, 255, 255, 1));
+}
+
+.uk-textarea {
+    font-size: 12px;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.content-item {
+    width: 33%;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.textarea-content {
+    width: 100%;
 }
 
 .content {
@@ -17,14 +27,7 @@
     max-width: 1000px;
     margin: auto;
     padding: 10px;
-    /*background-color: #e7b26c2b;*/
-    /*background-image: radial-gradient(#e7b26c2b, rgba(255,255,255,1));*/
     text-align: center;
-
-    /*position: fixed;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
 }
 
 .controls {
@@ -77,6 +80,7 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
