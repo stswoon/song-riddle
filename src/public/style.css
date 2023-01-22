@@ -83,7 +83,7 @@
 
 @media (max-width:641px) {
     .uk-heading-small {
-        display: none;
+        /* display: none; */
     }
 
     .uk-text-meta {
@@ -91,7 +91,7 @@
     }
 
     .content {
-        min-width: 500px;
+        min-width: 440px;
         display: grid;
         gap: 10px;
         /* height: 100vh; */
@@ -115,6 +115,7 @@
 
     .content-item {
         width: 100%;
+        min-width: 100px;
     }
 
     .uk-textarea {
