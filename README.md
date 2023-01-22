@@ -29,4 +29,3 @@ https://getuikit.com/
 
 
 TODO html 1.1 - server events + loading
-TODO mobile styles
