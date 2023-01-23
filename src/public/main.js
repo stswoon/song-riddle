@@ -109,6 +109,7 @@ window.public_translate = translate;
 function getLang(id) {
     return document.getElementById(id).value;
 }
+
 function setLang(id, lang) {
     document.getElementById(id).value = lang;
 }
@@ -122,26 +123,25 @@ async function translate(button) {
     getLang("lang4") && langs.push(getLang("lang4"));
     getLang("lang5") && langs.push(getLang("lang5"));
     langs.push(getLang("langFinal"));
-    langsString = langs.join(",");
 
     let text = document.getElementById("from").value;
 
     button.disabled = true;
     document.getElementById("progressbarTranslate").style.display = 'block';
     try {
-        // text = await sourceEventTranslate(text, langsString);
-        text = await restTranslate(text, langsString);
+        text = await sourceEventTranslate(text, langs);
+        // text = await restTranslate(text, langs);
+        document.getElementById("to").value = text;
     } catch (e) {
         console.error("Failed to translate", e);
         UIkit.notification('Ошибка конвертации');
     }
     document.getElementById("progressbarTranslate").style.display = 'none';
     button.disabled = false;
-
-    document.getElementById("to").value = text;
 }
 
 async function restTranslate(text, langs) {
+    langs = langs.join(",");
     text = encodeURIComponent(text);
     let url = `translate?langs=${langs}&text=${text}`;
     let res = await fetch(url);
@@ -150,33 +150,47 @@ async function restTranslate(text, langs) {
 }
 
 async function sourceEventTranslate(text, langs) {
-    eventSource = new EventSource('digits');
+    return new Promise((resolve, reject) => {
+        text = encodeURIComponent(text);
+        let langsString = langs.join(",");
+        let url = `translateEventSource?langs=${langsString}&text=${text}`;
 
-    eventSource.onopen = function (e) {
-        log("Событие: open");
-    };
+        let i = 1;
+        let n = langs.length;
+        document.getElementById("loaderPercentage").innerHTML = Math.round(i * (100 / n)) + "%";
 
-    eventSource.onerror = function (e) {
-        log("Событие: error");
-        if (this.readyState == EventSource.CONNECTING) {
-            log(`Переподключение (readyState=${this.readyState})...`);
-        } else {
-            log("Произошла ошибка.");
-        }
-    };
-
-    eventSource.onmessage = function (e) {
-        log("Событие: message, данные: " + e.data);
-
-        i = 1;
-        n = langs.length;
-        document.getElementById("loaderPercentage").innerHTML = Math.round(i * (100 / n));
-    };
-
-    function stop() { // когда нажата кнопка "Стоп"
-        eventSource.close();
-        log("Соединение закрыто");
-    }
+        let eventSource = new EventSource(url);
+        eventSource.onopen = (e) => console.log("eventSource open");
+        eventSource.onmessage = (e) => {
+            console.log("EventSource: message, data: " + e.data);
+            if (e.data.indexOf("result: ") >= 0) {
+                console.log("Successfully finish EventSource");
+                eventSource.close();
+                let text = e.data.replace("result: ", "");
+                text = text.replaceAll("___enter___", "\n");
+                resolve(text);
+            } else {
+                console.log("translating message: ", e);
+                i++;
+                document.getElementById("loaderPercentage").innerHTML = (Math.round(i * (100 / n)) - 1) + "%";
+            }
+        };
+        let reconnectTries = 5;
+        eventSource.onerror = (e) => {
+            if (this.readyState === EventSource.CONNECTING) {
+                if (reconnectTries <= 0) {
+                    console.error("Bad network reconnect tries is finish: ", e);
+                    reject(e);
+                } else {
+                    reconnectTries--;
+                    console.warn(`Reconnecting (readyState=${this.readyState})`);
+                }
+            } else {
+                console.error("Error in eventSource: ", e);
+                reject(e);
+            }
+        };
+    });
 }
 
 VOICE_CHUNK = 170; //max ~200, reduce because of /n and just in case

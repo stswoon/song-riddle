@@ -3,16 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Song Riddle v0.5</title>
+    <title>Song Riddle v0.6</title>
     <meta name="description"
         content="Викторина-загадка: загадай песню (или стих), переведи на другой язык или несколько, прослушай текст с потерей некоторых слов (или даже на другом языке) и попытайся отгадать.">
     <meta name="keywords" content="Song, Riddle, Translate, Песня, Загадка, Викторина, Перевод, Другие языки, Чтение">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> -->
-    <!-- <script src="//code.jquery.com/jquery-3.6.0.js"></script> -->
-    <!-- <script src="//code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/css/uikit.min.css" />
     <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit.min.js"></script>
@@ -25,7 +21,7 @@
 
 <body class="body-style">
 
-    <h1 class="uk-heading-small">Song Riddle v0.5</h1>
+    <h1 class="uk-heading-small">Song Riddle v0.6</h1>
     <!--<h6>Song Riddle v0.4</h6>-->
     <p class="uk-text-meta">Викторина-загадка: загадай песню (или стих), переведи на другой язык или несколько,
         прослушай текст с потерей некоторых слов (или даже на другом языке) и попытайся отгадать.</p>
@@ -106,7 +102,7 @@
                 onclick="public_translate(this)">
                 <div>Перевод<br />(lingva.ml)</div>
                 <div id="progressbarTranslate">
-                    <div class="loaderPercentage" id="loaderPercentage">10%</div>
+                    <div class="loaderPercentage" id="loaderPercentage"></div>
                     <div class="loader"></div>
                 </div>
             </button>

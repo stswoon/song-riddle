@@ -26,6 +26,37 @@ app.get('/translate', async (req, res) => {
     res.contentType("text").send(text);
 });
 
+app.get('/translateEventSource', async function (req, res) {
+    console.info("translateEventSource");
+
+    res.set({
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'text/event-stream',
+        'Connection': 'keep-alive'
+    });
+    res.flushHeaders();
+    // Tell the client to retry every 10 seconds if connectivity is lost
+    res.write('retry: 10000\n\n');
+
+    let text = decodeURIComponent(req.query.text);
+    let langs = req.query.langs;
+    langs = langs.split(",");
+
+    for (let i = 0; i < langs.length - 1; i++) {
+        // Emit an SSE that contains the current 'count' as a string
+        res.write(`data: convert ${langs[i]} -> ${langs[i + 1]}\n\n`);
+        text = await translate(text, langs[i], langs[i + 1]);
+    }
+
+    text = replaceAll(text, "\n", "___enter___");
+    res.write(`data: result: ${text}\n\n`);
+    res.end();
+});
+
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
+
 app.get('/read', async (req, res) => {
     console.info("voice");
     const text = decodeURIComponent(req.query.text);
