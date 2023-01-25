@@ -117,7 +117,7 @@ function setLang(id, lang) {
 async function translate(button) {
     let langs = [];
     langs.push(getLang("langSource"));
-    langs.push(getLang("lang1"));
+    getLang("lang1") && langs.push(getLang("lang1"));
     getLang("lang2") && langs.push(getLang("lang2"));
     getLang("lang3") && langs.push(getLang("lang3"));
     getLang("lang4") && langs.push(getLang("lang4"));
