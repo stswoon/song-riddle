@@ -89,7 +89,8 @@
 
 @media (max-width:641px) {
     .uk-heading-small {
-        display: none;
+        font-size: 16px;
+        margin-bottom: 2px;
     }
 
     .uk-text-meta {

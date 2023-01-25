@@ -1,0 +1,16 @@
+{
+  "name": "Song Riddle",
+  "short_name": "SongRiddle",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "256x256"
+    }
+  ],
+  "background_color": "#e7b26c2b",
+  "theme_color": "#e7b26c2b"
+}
