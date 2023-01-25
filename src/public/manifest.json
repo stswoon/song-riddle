@@ -1,9 +1,9 @@
 {
   "name": "Song Riddle",
-  "short_name": "SongRiddle",
+  "short_name": "Song Riddle",
   "start_url": "/",
   "scope": "/",
-  "display": "standalone",
+  "display": "minimal-ui",
   "lang": "ru",
   "icons": [
     {
