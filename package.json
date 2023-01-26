@@ -1,6 +1,6 @@
 {
   "name": "song-riddle",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "scripts": {
     "start": "node src/server.js",
     "dev": "cross-env dev=true nodemon src/server.js --dev"
