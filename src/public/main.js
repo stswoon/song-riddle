@@ -47,7 +47,66 @@ const langs = {
     so: "Сомали",
     zu: "Зулу",
     ur: "Урду"
+};
+
+//https://learn.javascript.ru/custom-elements
+class LangsSelector extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    render() {
+        const identifier = this.getAttribute("identifier");
+        const selectLang = this.getAttribute("selectLang");
+        const hideEmpty = this.getAttribute("hideEmpty");
+        let langsTmp = Object.keys(langs).map((key) => {
+            return {langId: key, langName: langs[key]};
+        })
+        if (!hideEmpty) {
+            langsTmp = [{langId: "", langName: ""}].concat(langsTmp);
+        }
+        // this.innerHTML = `
+        //     <select id="${identifier}" class="uk-select">
+        //         ${langsTmp.map(({langId, langName}) => {
+        //             return `<option value="${langId}" ${langId === selectLang ? "selected" : ""}>${langName}</option>`
+        //         }).join("")}
+        //     </select>
+        // `;
+
+        //https://alpinejs.dev/
+        this.innerHTML = `
+            <select id="${identifier}" class="uk-select"  x-data='{ langsTmp: ${JSON.stringify(langsTmp)}, selectLang: "${selectLang}" }'>
+                <template x-for="lang in langsTmp">
+                    <option x-html="lang.langName" x-bind:value="lang.langId" x-bind:selected="lang.langId === selectLang"></option>
+                </template>
+            </select>
+        `;
+
+        this.querySelector("select").addEventListener("click", (e) => {
+            console.log(e);
+        });
+
+        //setTimeout for scrolls
+    }
+
+    static get observedAttributes() {
+        return ["identifier", "selectLang", "hideEmpty"];
+    }
+
+    attributeChangedCallback() {
+        this.render();
+    }
+
+    rendered = false;
+
+    connectedCallback() {
+        if (this.rendered) return;
+        this.rendered = true;
+        this.render();
+    }
 }
+
+customElements.define("lang-selector", LangsSelector);
 
 const langVoiceMappings = [
     {
@@ -76,6 +135,7 @@ const langVoiceMappings = [
     }
 ];
 
+
 function constructSelect(id, langs, selectLang, hideEmpty) {
     function createOption(value, text, selected) {
         const opt = document.createElement('option');
@@ -95,11 +155,11 @@ function constructSelect(id, langs, selectLang, hideEmpty) {
 }
 
 constructSelect("langSource", langs, "ru", true);
-constructSelect("lang1", langs, "en");
-constructSelect("lang2", langs);
-constructSelect("lang3", langs);
-constructSelect("lang4", langs);
-constructSelect("lang5", langs);
+// constructSelect("lang1", langs, "en");
+// constructSelect("lang2", langs);
+// constructSelect("lang3", langs);
+// constructSelect("lang4", langs);
+// constructSelect("lang5", langs);
 const langsFinal = {};
 langVoiceMappings.forEach(item => langsFinal[item.lingvaMlValue] = item.lingvaMlText);
 constructSelect("langFinal", langsFinal, "ru", true);

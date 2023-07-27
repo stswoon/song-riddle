@@ -15,6 +15,7 @@
     <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/uikit@3.15.21/dist/js/uikit-icons.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/js-base64@3.7.4/base64.min.js"></script>
+    <script src="//unpkg.com/alpinejs@3.12.3/dist/cdn.js" defer></script>
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="main.js" defer></script>
@@ -89,11 +90,16 @@
             выбрать случайно
         </button>
 
-        <select id="lang1" class="uk-select"></select>
-        <select id="lang2" class="uk-select"></select>
-        <select id="lang3" class="uk-select"></select>
-        <select id="lang4" class="uk-select"></select>
-        <select id="lang5" class="uk-select"></select>
+        <lang-selector identifier="lang1" selectLang="en"></lang-selector>
+        <lang-selector identifier="lang2"></lang-selector>
+        <lang-selector identifier="lang3"></lang-selector>
+        <lang-selector identifier="lang4"></lang-selector>
+        <lang-selector identifier="lang5"></lang-selector>
+<!--        <select id="lang1" class="uk-select"></select>-->
+<!--        <select id="lang2" class="uk-select"></select>-->
+<!--        <select id="lang3" class="uk-select"></select>-->
+<!--        <select id="lang4" class="uk-select"></select>-->
+<!--        <select id="lang5" class="uk-select"></select>-->
 
         Конечный язык: <select id="langFinal" class="uk-select"></select>
 
