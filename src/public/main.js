@@ -16,7 +16,7 @@ window.onload = function () {
 
 function searchSong() {
     if (!document.getElementById("songTextsDialogIframe").src) {
-        document.getElementById("songTextsDialogIframe").src = "https://teksty-pesenok.ru";
+        document.getElementById("songTextsDialogIframe").src = "https://teksty-pesenok.com";
     }
     UIkit.modal('#searchSongModal').show();
 }
