@@ -4,7 +4,8 @@ module.exports.translate = async function translate(text, fromLang, toLang) {
     try {
         console.log(`Translate from=${fromLang} to=${toLang}, text: \n${text.substring(0,50)}...`);
         //const domain = "https://lingva.ml";
-        const domain = "http://lingva-ml-standby.stswoon.ru:10002";
+        //const domain = "http://lingva-ml-standby.stswoon.ru:10002";
+        const domain = "https://lingva-ml-standby.stswoon.ru";
         let url = `${domain}/api/v1/${fromLang}/${toLang}/${encodeURIComponent(text)}`;
         let res = await fetch(url);
         res = await res.json();
